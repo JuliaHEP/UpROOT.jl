@@ -1,0 +1,15 @@
+name = "UpROOT"
+uuid = "69ce31c6-c38d-56c2-aa87-409d3de9f997"
+
+[deps]
+ArraysOfArrays = "65a8f2f4-9b39-5baf-92e2-a9cc46fdf018"
+PyCall = "438e738f-606a-5dbb-bf0a-cddfbfd45ab0"
+
+[compat]
+PyCall = ">=1.90.0"
+
+[extras]
+Test = "8dfed614-e22c-5e08-85e1-65c5234f0b40"
+
+[targets]
+test = ["Test"]
