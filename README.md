@@ -7,6 +7,12 @@
 [![Appveyor Build Status](https://ci.appveyor.com/api/projects/status/github/JuliaHEP/UpROOT.jl?branch=master&svg=true)](https://ci.appveyor.com/project/JuliaHEP/UpROOT-jl)
 [![Codecov](https://codecov.io/gh/JuliaHEP/UpROOT.jl/branch/master/graph/badge.svg)](https://codecov.io/gh/JuliaHEP/UpROOT.jl)
 
+UpROOT.jl makes it possible to read and write CERN ROOT files without
+requiring a ROOT installation. It is a wrapper around the Python package
+[uproot](https://github.com/scikit-hep/uproot), which provides a pure-Python
+implementation of ROOT I/O.
+
+See the documentation for details:
 
 ## Documentation
 

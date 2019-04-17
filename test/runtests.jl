@@ -3,6 +3,7 @@
 import Test
 Test.@testset "Package UpROOT" begin
 
-# test code goes here
+include("test_pycall.jl")
+include("test_testfiles.jl")
 
 end # testset
