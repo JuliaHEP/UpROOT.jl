@@ -1,8 +1,8 @@
 # This file is a part of UpROOT.jl, licensed under the MIT License (MIT).
 
 function pyjaggedarray2jl(x::PyObject)
-    from = x.starts::Vector{Int}
-    until = x.stops::Vector{Int}
+    from = convert(Vector{Int}, x.starts)::Vector{Int}
+    until = convert(Vector{Int}, x.stops)::Vector{Int}
 
     data = x.content
     T = eltype(data)
@@ -19,6 +19,7 @@ function pyjaggedarray2jl(x::PyObject)
 
     VectorOfArrays(data, elem_ptr, kernel_size, ArraysOfArrays.no_consistency_checks)
 end
+
 
 py2jl(x::Any) = x
 
