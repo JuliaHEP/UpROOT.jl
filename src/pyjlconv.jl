@@ -21,13 +21,23 @@ function pyjaggedarray2jl(x::PyObject)
 end
 
 
+function awkwardobjectarray2jl(x::PyObject)
+    tp = Symbol(x.generator.cls.__name__)
+    data = pyjaggedarray2jl(x._content)
+
+    OpaqueObjectArray{tp}(data)
+end
+
+
 py2jl(x::Any) = x
 
 function py2jl(x::PyObject)
     if pybuiltin(:isinstance)(x, awkward.JaggedArray)
         pyjaggedarray2jl(x)
-    elseif pybuiltin(:isinstance)(x, awkward.array.base.AwkwardArray)
+    elseif pybuiltin(:isinstance)(x, awkward.array.table.Table)
         Table(_dict2nt(x._contents))
+    elseif pybuiltin(:isinstance)(x, awkward.array.objects.ObjectArray)
+        awkwardobjectarray2jl(x)
     elseif pybuiltin(:isinstance)(x, uproot.rootio.ROOTDirectory)
         TDirectory(x)
     elseif pybuiltin(:isinstance)(x, uproot.tree.TTreeMethods)

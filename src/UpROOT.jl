@@ -14,6 +14,7 @@ uproot = PyNULL()
 
 include("testdata.jl")
 include("pywrappers.jl")
+include("opaque.jl")
 include("pyjlconv.jl")
 include("tdirectory.jl")
 include("ttree.jl")
