@@ -1,6 +1,6 @@
 # Use
 #
-#     DOCUMENTER_DEBUG=true julia --color=yes make.jl local [fixdoctests]
+#     DOCUMENTER_DEBUG=true julia --color=yes make.jl local [nonstrict] [fixdoctests]
 #
 # for local builds.
 
@@ -12,7 +12,7 @@ makedocs(
     modules = [UpROOT],
     format = Documenter.HTML(
         prettyurls = !("local" in ARGS),
-        canonical = "https://JuliaHEP.github.io/ShapesOfVariables.jl/stable/"
+        canonical = "https://juliahep.github.io/UpROOT.jl/stable/"
     ),
     pages=[
         "Home" => "index.md",
@@ -21,7 +21,7 @@ makedocs(
     ],
     doctest = ("fixdoctests" in ARGS) ? :fix : true,
     linkcheck = ("linkcheck" in ARGS),
-    strict = !("local" in ARGS),
+    strict = !("nonstrict" in ARGS),
 )
 
 deploydocs(
