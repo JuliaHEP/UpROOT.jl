@@ -32,7 +32,9 @@ end
 py2jl(x::Any) = x
 
 function py2jl(x::PyObject)
-    if pybuiltin(:isinstance)(x, awkward.JaggedArray)
+    if pybuiltin(:isinstance)(x, numpy.ndarray)
+        _numpy2jl_impl(x.tolist(), x.dtype.names)
+    elseif pybuiltin(:isinstance)(x, awkward.JaggedArray)
         pyjaggedarray2jl(x)
     elseif pybuiltin(:isinstance)(x, awkward.array.table.Table)
         Table(_dict2nt(x._contents))
@@ -53,3 +55,10 @@ end
 
 
 _dict2nt(d::Dict) = NamedTuple{Tuple(Symbol.(keys(d)))}(py2jl.(values(d)))
+
+
+function _numpy2jl_impl(data::AbstractArray{<:Tuple}, fieldnames::NTuple{N,String}) where N
+    fieldsyms = Symbol.(fieldnames)
+    ntarray = NamedTuple{fieldsyms}.(data)
+    Table(ntarray)
+end

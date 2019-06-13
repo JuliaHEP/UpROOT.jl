@@ -11,6 +11,7 @@ using TypedTables
 
 awkward = PyNULL()
 uproot = PyNULL()
+numpy = PyNULL()
 
 include("testdata.jl")
 include("pywrappers.jl")
@@ -23,6 +24,7 @@ include("ttree.jl")
 function __init__()
     copy!(awkward, pyimport_conda("awkward", "awkward", "conda-forge"))
     copy!(uproot, pyimport_conda("uproot", "uproot", "conda-forge"))
+    copy!(numpy, pyimport("numpy"))
 
     for k in _testfile_keys
         testfiles[k] = _testfilename(k)
