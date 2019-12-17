@@ -10,10 +10,10 @@ TypedTables = "9d95f2ec-7b3d-5a63-8d20-e2491e220bb9"
 
 [compat]
 julia = "1"
-ArraysOfArrays = ">= 0.3.0"
-PyCall = ">= 1.90.0"
-Tables = ">= 0.1.12"
-TypedTables = ">= 1.1.0"
+ArraysOfArrays = "0.3, 0.4"
+PyCall = "1.9"
+Tables = "0.2"
+TypedTables = "1.1"
 
 [extras]
 Test = "8dfed614-e22c-5e08-85e1-65c5234f0b40"
