@@ -23,7 +23,18 @@ end
 
 function awkwardobjectarray2jl(x::PyObject)
     tp = Symbol(x.generator.cls.__name__)
-    data = pyjaggedarray2jl(x._content)
+
+    content = x.content
+
+    data = if content isa PyObject
+        # Content used to be an awkward.JaggedArray, at least in in older uproot/awkward-array versions
+        py2jl(x.content)
+    elseif content isa Array{PyObject,2}
+        # Content now seems to be an ndarray with object bytes in [:,1] and something else (what?) in [:,2]
+        Array.(PyArray.(x.content[:,1]))
+    else
+        throw(ArgumentError("Unexpected content type $(typeof(content)) of awkward.array.objects.ObjectArray"))
+    end
 
     OpaqueObjectArray{tp}(data)
 end
