@@ -26,5 +26,6 @@ makedocs(
 
 deploydocs(
     repo = "github.com/JuliaHEP/UpROOT.jl.git",
-    forcepush = true
+    forcepush = true,
+    push_preview = true,
 )
