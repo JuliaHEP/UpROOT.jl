@@ -34,10 +34,17 @@ Base.size(tree::TTree) = (pyobj(tree).numentries,)
 
 Base.IndexStyle(tree::TTree) = IndexLinear()
 
+function array_of_first_dim(m)
+    rest = CartesianIndices(CartesianIndex(size(m)[2:end]))
+    return [m[1,rest] for i in 1:size(m,1)]
+end
+
 function Base.getindex(tree::TTree, idxs::AbstractUnitRange)
     @boundscheck checkbounds(tree, idxs)
     cols = pyobj(tree).arrays(entrystart = first(idxs) - 1, entrystop = last(idxs))
-    Table(_dict2nt(cols))
+    d2nt = _dict2nt(cols)
+    updated_d2nt = NamedTuple{keys(d2nt)}([ndims(v)==1 ? v : array_of_first_dim(v) for v in d2nt])
+    Table(updated_d2nt)
 end
 
 Base.getindex(tree::TTree, i::Integer) = first(tree[i:i])
