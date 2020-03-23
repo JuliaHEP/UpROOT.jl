@@ -37,7 +37,12 @@ Base.IndexStyle(tree::TTree) = IndexLinear()
 function Base.getindex(tree::TTree, idxs::AbstractUnitRange)
     @boundscheck checkbounds(tree, idxs)
     cols = pyobj(tree).arrays(entrystart = first(idxs) - 1, entrystop = last(idxs))
-    Table(_dict2nt(cols))
+
+    colnames = Tuple(Symbol.(keys(cols)))
+    colvals_py = values(cols)
+    colvals_jl = _branch_content.(py2jl.(colvals_py))
+
+    Table(NamedTuple{colnames}(colvals_jl))
 end
 
 Base.getindex(tree::TTree, i::Integer) = first(tree[i:i])
@@ -91,7 +96,8 @@ Base.IndexStyle(branch::TBranch) = IndexLinear()
 
 function Base.getindex(branch::TBranch, idxs::AbstractUnitRange)
     @boundscheck checkbounds(branch, idxs)
-    py2jl(pyobj(branch).array(entrystart = first(idxs) - 1, entrystop = last(idxs)))
+    content = pyobj(branch).array(entrystart = first(idxs) - 1, entrystop = last(idxs))
+    _branch_content(py2jl(content))
 end
 
 Base.getindex(branch::TBranch, i::Integer) = first(branch[i:i])
@@ -139,4 +145,19 @@ end
 
 function read_ttree(filename::AbstractString, treename::AbstractString, branchnames::Array{Symbol})
     read_ttree(filename, treename, String.(branchnames))
+end
+
+
+_branch_content(A::AbstractVector) = A
+
+# uproot returns some branches containing fix-size n-dim array data as
+# (n+1)-dim arrays. Permutation of dimensions in _branch_content changes
+# memory layout and preserves order of indices. So a branch containing
+# static C arrays of size [2][3] becomes a vector of arrays of size (2, 3) in
+# Julia.
+function _branch_content(A::AbstractArray)
+    dimidxs = ntuple(i -> i, Val(length(size(A))))
+    branchdim = first(dimidxs)
+    innerdims = Base.tail(dimidxs)
+    VectorOfSimilarArrays(permutedims(A, (innerdims..., branchdim)))
 end

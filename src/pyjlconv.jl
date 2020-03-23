@@ -48,7 +48,7 @@ function py2jl(x::PyObject)
     elseif pybuiltin(:isinstance)(x, awkward.JaggedArray)
         pyjaggedarray2jl(x)
     elseif pybuiltin(:isinstance)(x, awkward.array.table.Table)
-        Table(_dict2nt(x._contents))
+        Table(_py2jl_dict2nt(x._contents))
     elseif pybuiltin(:isinstance)(x, awkward.array.objects.ObjectArray)
         awkwardobjectarray2jl(x)
     elseif pybuiltin(:isinstance)(x, uproot.rootio.ROOTDirectory)
@@ -64,8 +64,7 @@ function py2jl(x::PyObject)
     end
 end
 
-
-_dict2nt(d::Dict) = NamedTuple{Tuple(Symbol.(keys(d)))}(py2jl.(values(d)))
+_py2jl_dict2nt(d::Dict) = NamedTuple{Tuple(Symbol.(keys(d)))}(py2jl.(values(d)))
 
 
 function _numpy2jl_impl(data::AbstractArray{<:Tuple}, fieldnames::NTuple{N,String}) where N
