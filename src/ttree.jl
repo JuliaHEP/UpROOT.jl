@@ -65,6 +65,10 @@ function Tables.schema(tree::TTree)
 end
 
 
+TypedTables.Table(tree::TTree) = tree[:]
+
+
+
 """
     TBranch <: AbstractVector{Any}
 

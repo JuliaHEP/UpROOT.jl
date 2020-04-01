@@ -43,5 +43,7 @@ using TypedTables
         @test copy(tree.Jet_E) == tree.Jet_E[:]
         @test Array(tree.Jet_E) == tree.Jet_E[:]
         @test convert(Array, tree.Jet_E) == tree.Jet_E[:]
+
+        @test Table(tree) == tree[:]
     end
 end
