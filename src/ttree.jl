@@ -10,6 +10,16 @@
 `TTree` is an on-disk data structure, iteration over single elements is *very*
 inefficient.
 
+Even though `TTree` is semantically a vector over the tree entries, a two
+dimensional `getindex(tree::TTree, entries, branches)` is defined for
+convenience. So you may use, e.g.:
+
+```julia
+tree[1:5, (:branch1, :branch2)]
+tree[:, [:branch1, :branch2]]
+tree[[1,4,7,10], ["branch1", "branch2"]]
+```
+
 Limitations: Write access is not implemented yet.
 """
 struct TTree <: AbstractVector{NamedTuple}
@@ -51,6 +61,14 @@ end
 Base.getindex(tree::TTree, i::Integer) = first(tree[i:i])
 
 Base.getindex(tree::TTree, ::Colon) = getindex(tree, eachindex(tree))
+
+Base.getindex(tree::TTree, idxs, col::Symbol) = getproperty(tree, col)[idxs]
+
+function Base.getindex(tree::TTree, idxs, cols::Union{Tuple,AbstractArray})
+    colnames = map(Symbol, (cols...,))
+    colvalues = map(c -> tree[idxs, c], colnames)
+    Table(NamedTuple{colnames}(colvalues))
+end
 
 
 Tables.istable(::Type{TTree}) = true

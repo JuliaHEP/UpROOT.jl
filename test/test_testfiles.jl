@@ -45,5 +45,9 @@ using TypedTables
         @test convert(Array, tree.Jet_E) == tree.Jet_E[:]
 
         @test Table(tree) == tree[:]
+
+        @test tree[1:5, (:Jet_Px, :Jet_Py, :Jet_Pz)] isa Table{<:NamedTuple{(:Jet_Px, :Jet_Py, :Jet_Pz)}}
+        @test tree[:, [:Jet_Px, :Jet_Py, :Jet_Pz]] isa Table{<:NamedTuple{(:Jet_Px, :Jet_Py, :Jet_Pz)}}
+        @test tree[[2, 4, 7, 11], ["Jet_Px", "Jet_Py", "Jet_Pz"]] isa Table{<:NamedTuple{(:Jet_Px, :Jet_Py, :Jet_Pz)}}
     end
 end
