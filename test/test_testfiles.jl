@@ -39,5 +39,9 @@ using TypedTables
         @test tree.Jet_E[1] isa AbstractVector
         @test tree.Jet_E[1:5] isa VectorOfVectors
         @test tree.Jet_E[:] isa VectorOfVectors
+
+        @test copy(tree.Jet_E) == tree.Jet_E[:]
+        @test Array(tree.Jet_E) == tree.Jet_E[:]
+        @test convert(Array, tree.Jet_E) == tree.Jet_E[:]
     end
 end

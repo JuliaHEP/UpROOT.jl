@@ -110,6 +110,10 @@ Base.getindex(branch::TBranch, i::Integer) = first(branch[i:i])
 
 Base.getindex(branch::TBranch, ::Colon) = getindex(branch, eachindex(branch))
 
+Base.copy(branch::TBranch) = Array(branch)
+
+Base.Array(branch::TBranch) = branch[:]
+
 
 Tables.istable(::Type{TBranch}) = true
 
