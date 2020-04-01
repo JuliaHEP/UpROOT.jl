@@ -54,7 +54,7 @@ Tables.istable(::Type{TTree}) = true
 
 Tables.columnaccess(::Type{TTree}) = true
 
-Tables.columns(tree::TTree) = tree # Dict(broadcast(item -> Symbol(item[1]) => TBranch(item[2]), pyobj(tree).items()))
+Tables.columns(tree::TTree) = Dict(name => getproperty(tree, name) for name in Tables.columnnames(tree))
 
 function Tables.schema(tree::TTree)
     props = Base.propertynames(tree)
