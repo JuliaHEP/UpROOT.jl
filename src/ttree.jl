@@ -7,6 +7,9 @@
 `uproot.tree.TTreeMethods`. It behaves like a Julia `AbstractVector` and
 `Tables.Table` (with column access).
 
+`TTree` is an on-disk data structure, iteration over single elements is *very*
+inefficient.
+
 Limitations: Write access is not implemented yet.
 """
 struct TTree <: AbstractVector{NamedTuple}
@@ -69,6 +72,9 @@ end
 `uproot.tree.TBranchMethods`. It behaves like a Julia `AbstractVector`. Ff
 the branch has children, it also behaves like a `Tables.Table` (with column
 access).
+
+`TBranch` is an on-disk data structure, iteration over single elements is *very*
+inefficient.
 
 Limitations: Write access is not implemented yet.
 """
