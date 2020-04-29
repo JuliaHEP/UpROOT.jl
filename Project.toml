@@ -10,7 +10,7 @@ TypedTables = "9d95f2ec-7b3d-5a63-8d20-e2491e220bb9"
 
 [compat]
 julia = "1"
-ArraysOfArrays = "0.3, 0.4"
+ArraysOfArrays = "0.3, 0.4, 0.5"
 PyCall = "1.9"
 Tables = "0.2, 1"
 TypedTables = "1.1"
