@@ -22,8 +22,8 @@ include("tdirectory.jl")
 include("ttree.jl")
 
 function __init__()
-    copy!(awkward, pyimport_conda("awkward", "awkward", "conda-forge"))
-    copy!(uproot, pyimport_conda("uproot", "uproot", "conda-forge"))
+    copy!(awkward, pyimport_conda("awkward0", "awkward0", "conda-forge"))
+    copy!(uproot, pyimport_conda("uproot3", "uproot3", "conda-forge"))
     copy!(numpy, pyimport("numpy"))
 
     for k in _testfile_keys
