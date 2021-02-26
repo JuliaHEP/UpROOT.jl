@@ -12,15 +12,15 @@ makedocs(
     modules = [UpROOT],
     format = Documenter.HTML(
         prettyurls = !("local" in ARGS),
-        canonical = "https://juliahep.github.io/UpROOT.jl/stable/"
+        canonical = "https://JuliaHEP.github.io/UpROOT.jl/stable/"
     ),
-    pages=[
+    pages = [
         "Home" => "index.md",
         "API" => "api.md",
         "LICENSE" => "LICENSE.md",
     ],
     doctest = ("fixdoctests" in ARGS) ? :fix : true,
-    linkcheck = ("linkcheck" in ARGS),
+    linkcheck = !("nonstrict" in ARGS),
     strict = !("nonstrict" in ARGS),
 )
 
