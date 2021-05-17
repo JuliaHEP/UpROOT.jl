@@ -4,8 +4,11 @@ __precompile__(true)
 
 module UpROOT
 
+using Statistics
+
 using ArraysOfArrays
 using PyCall
+using StatsBase
 using Tables
 using TypedTables
 
