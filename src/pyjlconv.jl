@@ -39,6 +39,25 @@ function awkwardobjectarray2jl(x::PyObject)
     OpaqueObjectArray{tp}(data)
 end
 
+function _conv_hist_edge(edge::AbstractVector{<:Real})
+    steps = diff(edge)
+    step_size = mean(steps)
+    if all(isapprox(first(steps)), step_size)
+        minimum(edge):step_size:maximum(edge)
+    else
+        edge
+    end
+end
+
+_hist_edges(edges::AbstractVector{<:Real}) = _conv_hist_edge(edges)
+_hist_edges(edges::NTuple{N,AbstractVector{<:Real}}) where N = map(_conv_hist_edge, edges)
+
+function roothist2jl(x::PyObject)
+    edges = _hist_edges(x.edges)
+    weights = x.values
+    Histogram(edges, weights)
+end
+
 
 py2jl(x::Any) = x
 
@@ -55,12 +74,15 @@ function py2jl(x::PyObject)
         TDirectory(x)
     elseif pybuiltin(:isinstance)(x, uproot.tree.TTreeMethods)
         TTree(x)
-    elseif pybuiltin(:isinstance)(x, uproot.tree.TBranchMethods)
-        TBranch(x)
+    elseif hasproperty(x, :bins)
+        roothist2jl(x)
     else
-        pytypename = pybuiltin(:type)(x).__name__
-        @warn "Conversion of python type $pytypename to a Julia type not supported"
-        x
+        y = convert(PyAny, x)
+        if y isa PyObject
+            pytypename = pybuiltin(:type)(x).__name__
+            @warn "Conversion of python type $pytypename to a Julia type not supported"
+            x
+        end
     end
 end
 

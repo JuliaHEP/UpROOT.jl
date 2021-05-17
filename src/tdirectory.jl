@@ -30,7 +30,7 @@ Base.keys(tdir::TDirectory) = pyobj(tdir).keys()
 
 Base.length(tdir::TDirectory) = length(keys(tdir))
 
-Base.getindex(tdir::TDirectory, objname::AbstractString) = py2jl(get(pyobj(tdir), objname))
+Base.getindex(tdir::TDirectory, objname::AbstractString) = py2jl(get(pyobj(tdir), PyObject, objname))
 
 
 
