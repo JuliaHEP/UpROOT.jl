@@ -42,7 +42,7 @@ end
 function _conv_hist_edge(edge::AbstractVector{<:Real})
     steps = diff(edge)
     step_size = mean(steps)
-    if all(isapprox(first(steps)), step_size)
+    if all(x -> isapprox(x, first(steps)), step_size)
         minimum(edge):step_size:maximum(edge)
     else
         edge
