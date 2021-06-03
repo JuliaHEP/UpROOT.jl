@@ -74,7 +74,7 @@ function py2jl(x::PyObject)
         TDirectory(x)
     elseif pybuiltin(:isinstance)(x, uproot.tree.TTreeMethods)
         TTree(x)
-    elseif hasproperty(x, :bins)
+    elseif PyCall.hasproperty(x, :bins) # FIXME: replace with Base.hasproperty in the future
         roothist2jl(x)
     else
         y = convert(PyAny, x)
