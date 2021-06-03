@@ -55,7 +55,7 @@ _hist_edges(edges::NTuple{N,AbstractVector{<:Real}}) where N = map(_conv_hist_ed
 function roothist2jl(x::PyObject)
     edges = _hist_edges(x.edges)
     weights = x.values
-    Histogram(edges, weights)
+    Histogram(edges, weights, :left)
 end
 
 
