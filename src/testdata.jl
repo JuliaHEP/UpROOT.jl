@@ -14,7 +14,8 @@ testdatadir() = joinpath(dirname(@__DIR__), "deps", "testdata")
 const _testfile_keys = [
     "leaflist",
     "HZZ",
-    "hepdata-example"
+    "hepdata-example",
+    "nesteddirs"
 ]
 
 _testfilename(k::AbstractString) = joinpath(testdatadir(), "$k.root")

@@ -8,10 +8,21 @@ using TypedTables
 using StatsBase
 
 @testset "testfiles" begin
+    @testset "nesteddirs" begin
+        file = TFile(UpROOT.testfiles["nesteddirs"])
+        @test "one;1" in keys(file)
+        @test length(file) == 2
+        @test file["one"] isa TDirectory
+        @test file["one"]["two"] isa TDirectory
+    end
+
+
     @testset "leaflist" begin
         file = TFile(UpROOT.testfiles["leaflist"])
         @test "tree;1" in keys(file)
         tree = file["tree"]
+
+        @test propertynames(tree) == [:leaflist]
 
         @test tree[1] isa NamedTuple
         @test tree[1].leaflist isa NamedTuple
