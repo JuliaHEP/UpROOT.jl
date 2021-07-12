@@ -9,7 +9,8 @@
 UpROOT.jl makes it possible to read and write CERN ROOT files without
 requiring a ROOT installation. It is a wrapper around the Python package
 [uproot](https://github.com/scikit-hep/uproot), which provides a pure-Python
-implementation of ROOT I/O.
+implementation of ROOT I/O. There also exists a pure-Julia ROOT file reading library
+[UnROOT.jl](https://github.com/tamasgal/UnROOT.jl) that is built for speed and memory efficiency.
 
 See the documentation for details:
 
