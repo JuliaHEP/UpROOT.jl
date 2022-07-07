@@ -1,6 +1,6 @@
 name = "UpROOT"
 uuid = "69ce31c6-c38d-56c2-aa87-409d3de9f997"
-version = "0.3.2"
+version = "0.3.3"
 
 [deps]
 ArraysOfArrays = "65a8f2f4-9b39-5baf-92e2-a9cc46fdf018"
