@@ -7,6 +7,14 @@
 using Documenter
 using UpROOT
 
+# Doctest setup
+DocMeta.setdocmeta!(
+    UpROOT,
+    :DocTestSetup,
+    :(using UpROOT);
+    recursive=true,
+)
+
 makedocs(
     sitename = "UpROOT",
     modules = [UpROOT],
