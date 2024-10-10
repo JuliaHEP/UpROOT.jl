@@ -1,4 +1,15 @@
-# UpROOT.jl
+UpROOT.jl
+======
+
+# :warning: This package is deprecated :warning:
+
+- For reading/writing `.root` files using Julia package, check out
+  [UnROOT.jl](https://github.com/JuliaHEP/UnROOT.jl)
+- For C++ ROOT wrapper packages, check out [ROOT.jl](https://github.com/JuliaHEP/ROOT.jl) and [RootIO.jl](https://github.com/JuliaHEP/RootIO.jl)
+- For awkward array support, check out
+  [AwkwardArray.jl](https://github.com/JuliaHEP/AwkwardArray.jl)
+
+---
 
 [![Documentation for stable version](https://img.shields.io/badge/docs-stable-blue.svg)](https://JuliaHEP.github.io/UpROOT.jl/stable)
 [![Documentation for development version](https://img.shields.io/badge/docs-dev-blue.svg)](https://JuliaHEP.github.io/UpROOT.jl/dev)
